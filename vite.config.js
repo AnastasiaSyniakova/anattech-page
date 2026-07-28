@@ -9,5 +9,5 @@ import { defineConfig } from "vite";
   Repo: anattech-page  →  base: '/anattech-page/'
 */
 export default defineConfig({
-  base: "/anattech-page/",
+  base: "/",
 });
