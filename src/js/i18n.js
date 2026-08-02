@@ -2,23 +2,23 @@
 //    i18n.js  —  internacionalización (i-18-n)
 //    ------------------------------------------------------------
 //    CÓMO FUNCIONA
-//    1. Todo el texto vive en el objeto TEXTOS, por idioma.
+//    1. Todo el texto vive en el objeto TEXTS, por idioma.
 //    2. En el HTML marcás los elementos:
-//         data-i18n="clave"           → reemplaza el texto
-//         data-i18n-html="clave"      → reemplaza HTML (permite <em>)
+//         data-i18n="key"           → reemplaza el texto
+//         data-i18n-html="key"      → reemplaza HTML (permite <em>)
 //         data-i18n-attr="content"    → reemplaza un atributo
-//    3. aplicarIdioma() recorre el DOM y completa todo.
+//    3. applyLang() recorre el DOM y completa todo.
 
-//    PARA AGREGAR UN IDIOMA: sumalo a TEXTOS y a CONFIG.idiomas.
+//    PARA AGREGAR UN IDIOMA: sumalo a TEXTOS y a CONFIG.langs.
 //    ============================================================ */
 
 import { CONFIG } from "./config.js";
 
-export const TEXTOS = {
+export const TEXTS = {
   es: {
     metaTitle: "Anattech · Automatización con IA para tu negocio",
     metaDesc:
-      "Automatizamos la atención por WhatsApp, las reservas y el seguimiento de clientes.",
+      "Automatizamos la atención por WhatsApp, las reservas y el seguimiento de clientes",
 
     navHow: "Cómo funciona",
     navContact: "Contacto",
@@ -27,7 +27,7 @@ export const TEXTOS = {
     heroPill: "Automatizá tus operaciones con IA",
     heroTitle: "Hacé que tu negocio <em>trabaje por vos</em>, las 24 horas",
     heroSub:
-      "Automatizamos la atención por WhatsApp, las reservas y el seguimiento de clientes.",
+      "Automatizamos la atención por WhatsApp, las reservas y el seguimiento de clientes",
     ctaPrimary: "Pedí tu diagnóstico gratis",
     ctaSecondary: "Cómo funciona",
 
@@ -35,9 +35,10 @@ export const TEXTOS = {
     statNoShow: "Menos ausencias",
     statAlways: "Atención activa",
     statSpeed: "Tiempo de respuesta",
+    statSpeedSuffix: " seg",
 
     howEyebrow: "Cómo funciona",
-    howTitle: "Tres pasos. Sin que cambies cómo trabajás.",
+    howTitle: "Tres pasos. Sin que cambies cómo trabajás",
     howIntro:
       "Conectamos las herramientas que ya usás para automatizar tus procesos. Integrá WhatsApp, Telegram, Google Calendar u otras plataformas para centralizar la información, reducir tareas manuales y trabajar de manera más eficiente.",
 
@@ -64,7 +65,7 @@ export const TEXTOS = {
     errSector: "Elegí tu rubro para preparar el diagnóstico.",
     formSubmit: "Pedir diagnóstico gratis",
     formSending: "Enviando…",
-    formNote: "Te respondo dentro de las 24 horas. Sin spam.",
+    formNote: "Te respondo dentro de las 24 horas",
     formError: "Algo falló al enviar. Probá de nuevo o escribime por WhatsApp.",
     successTitle: "¡Listo!",
     successText: "Te escribo dentro de las próximas 24 horas para coordinar.",
@@ -89,9 +90,8 @@ export const TEXTOS = {
     ctaNav: "Free assessment",
 
     heroPill: "Automate your operations with AI",
-    heroTitle: "Keep your business working for <em>you</em> 24/7.",
-    heroSub:
-      "We automate WhatsApp support, bookings and client follow-up. No more enquiries lost at eleven at night.",
+    heroTitle: "Keep your business <em>working for you</em> 24/7",
+    heroSub: "We automate WhatsApp support, bookings and client follow-up",
     ctaPrimary: "Get your free assessment",
     ctaSecondary: "How it works",
 
@@ -99,9 +99,10 @@ export const TEXTOS = {
     statNoShow: "Fewer no-shows",
     statAlways: "Always on",
     statSpeed: "Response time",
+    statSpeedSuffix: " sec",
 
     howEyebrow: "How it works",
-    howTitle: "Automate your business in three simple steps.",
+    howTitle: "Automate your business in three simple steps",
     howIntro:
       "We connect the tools you already use, such as WhatsApp, Telegram, and Google Calendar to streamline your workflows, reduce manual work, and keep everything in one place.",
 
@@ -118,7 +119,7 @@ export const TEXTOS = {
     formEyebrow: "Start here",
     formTitle: "Free 20-minute assessment.",
     formIntro:
-      "We look at your operation together and tell you what can be automated and how much time it would save. No commitment.",
+      "We look at your operation together and tell you what can be automated and how much time it would save.",
     fieldName: "Name",
     fieldContact: "Email or WhatsApp",
     fieldSector: "Industry",
@@ -128,7 +129,7 @@ export const TEXTOS = {
     errSector: "Pick your industry so I can prepare.",
     formSubmit: "Request free assessment",
     formSending: "Sending…",
-    formNote: "I reply within 24 hours. No spam.",
+    formNote: "I'll get back to you within 24 hours",
     formError: "Something went wrong. Try again or message me on WhatsApp.",
     successTitle: "Done!",
     successText: "I will write to you within the next 24 hours.",
@@ -145,96 +146,90 @@ export const TEXTOS = {
   },
 };
 
-/* ---------- estado ---------- */
+/* ---------- state ---------- */
 
-let idiomaActual = CONFIG.idiomaPorDefecto;
+let currentLang = CONFIG.defaultLang;
 
-export function getIdioma() {
-  return idiomaActual;
+export function getLang() {
+  return currentLang;
 }
 
-/** Devuelve el texto de una clave en el idioma activo. */
-export function t(clave) {
-  return (
-    TEXTOS[idiomaActual]?.[clave] ??
-    TEXTOS[CONFIG.idiomaPorDefecto][clave] ??
-    clave
-  );
+/** Returns the text for a key in the active language. */
+export function t(key) {
+  return TEXTS[currentLang]?.[key] ?? TEXTS[CONFIG.defaultLang][key] ?? key;
 }
 
-/* ---------- aplicar al DOM ---------- */
+/* ---------- apply to the DOM ---------- */
 
-export function aplicarIdioma(idioma) {
-  if (!TEXTOS[idioma]) return;
-  idiomaActual = idioma;
+export function applyLang(lang) {
+  if (!TEXTS[lang]) return;
+  currentLang = lang;
 
-  document.documentElement.lang = idioma === "es" ? "es-AR" : "en";
+  document.documentElement.lang = lang === "es" ? "es-AR" : "en";
 
-  // Texto plano
+  // Plain text
   document.querySelectorAll("[data-i18n]").forEach((el) => {
-    const clave = el.dataset.i18n;
+    const key = el.dataset.i18n;
     const attr = el.dataset.i18nAttr; // data-i18n-attr="content"
     if (attr) {
-      el.setAttribute(attr, t(clave));
+      el.setAttribute(attr, t(key));
     } else {
-      el.textContent = t(clave);
+      el.textContent = t(key);
     }
   });
 
-  // HTML (permite etiquetas dentro del texto, ej. <em>)
+  // HTML (allows tags inside the text, e.g. <em>)
   document.querySelectorAll("[data-i18n-html]").forEach((el) => {
     el.innerHTML = t(el.dataset.i18nHtml);
   });
 
-  // Guardar preferencia y avisar al resto de la app
+  // Save preference and notify the rest of the app
   try {
-    localStorage.setItem("idioma", idioma);
+    localStorage.setItem("lang", lang);
   } catch (_) {
-    /* modo incógnito, no pasa nada */
+    /* incognito mode, no problem */
   }
 
-  document.dispatchEvent(
-    new CustomEvent("idioma:cambiado", { detail: { idioma } }),
-  );
+  document.dispatchEvent(new CustomEvent("lang:changed", { detail: { lang } }));
 }
 
-/* ---------- selector de idioma ---------- */
+/* ---------- language switcher ---------- */
 
 export function initI18n() {
-  // Preferencia guardada > idioma del navegador > default
-  let inicial = CONFIG.idiomaPorDefecto;
+  // Saved preference > browser language > default
+  let initial = CONFIG.defaultLang;
   try {
-    const guardado = localStorage.getItem("idioma");
-    if (guardado && TEXTOS[guardado]) inicial = guardado;
-    else if (navigator.language?.startsWith("en")) inicial = "en";
+    const saved = localStorage.getItem("lang");
+    if (saved && TEXTS[saved]) initial = saved;
+    else if (navigator.language?.startsWith("en")) initial = "en";
   } catch (_) {
     /* noop */
   }
 
-  const cont = document.getElementById("langSwitch");
-  if (cont) {
-    cont.innerHTML = CONFIG.idiomas
+  const container = document.getElementById("langSwitch");
+  if (container) {
+    container.innerHTML = CONFIG.langs
       .map(
         (id) =>
           `<button type="button" class="lang-switch__btn" data-lang="${id}">${id.toUpperCase()}</button>`,
       )
       .join("");
 
-    cont.addEventListener("click", (e) => {
+    container.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-lang]");
       if (!btn) return;
-      aplicarIdioma(btn.dataset.lang);
-      marcarActivo(cont);
+      applyLang(btn.dataset.lang);
+      markActive(container);
     });
   }
 
-  aplicarIdioma(inicial);
-  marcarActivo(cont);
+  applyLang(initial);
+  markActive(container);
 }
 
-function marcarActivo(cont) {
-  if (!cont) return;
-  cont.querySelectorAll("[data-lang]").forEach((b) => {
-    b.classList.toggle("is-active", b.dataset.lang === idiomaActual);
+function markActive(container) {
+  if (!container) return;
+  container.querySelectorAll("[data-lang]").forEach((b) => {
+    b.classList.toggle("is-active", b.dataset.lang === currentLang);
   });
 }

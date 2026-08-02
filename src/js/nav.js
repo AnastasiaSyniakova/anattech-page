@@ -21,11 +21,11 @@ export function initNav() {
 
   if (!burger || !nav) return;
 
-  const toggle = (abrir) => {
-    const estado = abrir ?? !nav.classList.contains("is-open");
-    nav.classList.toggle("is-open", estado);
-    burger.classList.toggle("is-open", estado);
-    burger.setAttribute("aria-expanded", String(estado));
+  const toggle = (open) => {
+    const isOpen = open ?? !nav.classList.contains("is-open");
+    nav.classList.toggle("is-open", isOpen);
+    burger.classList.toggle("is-open", isOpen);
+    burger.setAttribute("aria-expanded", String(isOpen));
   };
 
   burger.addEventListener("click", () => toggle());

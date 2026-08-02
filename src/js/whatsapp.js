@@ -7,18 +7,18 @@
    ============================================================ */
 
 import { CONFIG } from "./config.js";
-import { getIdioma } from "./i18n.js";
+import { getLang } from "./i18n.js";
 
 export function initWhatsApp() {
-  actualizarLinks();
+  updateLinks();
   // Si cambia el idioma, el mensaje pre-cargado cambia también
-  document.addEventListener("idioma:cambiado", actualizarLinks);
+  document.addEventListener("lang:changed", updateLinks);
 }
 
-function actualizarLinks() {
-  const { numero, mensaje } = CONFIG.whatsapp;
-  const texto = mensaje[getIdioma()] ?? mensaje.es;
-  const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+function updateLinks() {
+  const { number, message } = CONFIG.whatsapp;
+  const text = message[getLang()] ?? message.es;
+  const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 
   ["waFloat", "footerWa"].forEach((id) => {
     const el = document.getElementById(id);

@@ -8,59 +8,59 @@
    los datos mandan, la interfaz es el resultado.
    ============================================================ */
 
-import { STATS, PASOS, RUBROS } from "./content.js";
+import { STATS, STEPS, SECTORS } from "./content.js";
 import { t } from "./i18n.js";
 
 export function renderStats() {
-  const cont = document.getElementById("stats");
-  if (!cont) return;
+  const container = document.getElementById("stats");
+  if (!container) return;
 
-  cont.innerHTML = STATS.map(
+  container.innerHTML = STATS.map(
     (s) => `
     <li class="stat">
       <span class="stat__num"
-            data-target="${s.valor}"
-            data-prefix="${s.prefijo ?? ""}"
-            data-suffix="${s.sufijo ?? ""}">0</span>
-      <span class="stat__label">${t(s.clave)}</span>
+            data-target="${s.value}"
+            data-prefix="${s.prefix ?? ""}"
+            data-suffix="${s.suffixKey ? t(s.suffixKey) : (s.suffix ?? "")}">0</span>
+      <span class="stat__label">${t(s.key)}</span>
     </li>
   `,
   ).join("");
 }
 
-export function renderPasos() {
-  const cont = document.getElementById("steps");
-  if (!cont) return;
+export function renderSteps() {
+  const container = document.getElementById("steps");
+  if (!container) return;
 
-  cont.innerHTML = PASOS.map(
-    (p) => `
+  container.innerHTML = STEPS.map(
+    (step) => `
     <li class="step reveal">
-      <span class="step__num" aria-hidden="true">${p.n}</span>
-      <h3 class="step__title">${t(p.titulo)}</h3>
-      <p class="step__text">${t(p.texto)}</p>
+      <span class="step__num" aria-hidden="true">${step.n}</span>
+      <h3 class="step__title">${t(step.titleKey)}</h3>
+      <p class="step__text">${t(step.textKey)}</p>
     </li>
   `,
   ).join("");
 }
 
-export function renderRubros() {
+export function renderSectors() {
   const select = document.getElementById("rubro");
   if (!select) return;
 
-  const actual = select.value; // no perder lo que el usuario ya eligió
+  const current = select.value; // no perder lo que el usuario ya eligió
 
-  select.innerHTML = RUBROS.map(
-    (r) => `
-    <option value="${r.valor}">${t(r.clave)}</option>
+  select.innerHTML = SECTORS.map(
+    (s) => `
+    <option value="${s.value}">${t(s.key)}</option>
   `,
   ).join("");
 
-  select.value = actual;
+  select.value = current;
 }
 
 /** Vuelve a pintar todo lo que depende del idioma. */
-export function renderTodo() {
+export function renderAll() {
   renderStats();
-  renderPasos();
-  renderRubros();
+  renderSteps();
+  renderSectors();
 }

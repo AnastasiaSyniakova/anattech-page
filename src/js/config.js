@@ -6,15 +6,15 @@
    ============================================================ */
 
 export const CONFIG = {
-  marca: "Anattech",
+  brand: "Anattech",
 
   // --- WhatsApp ---
   // Formato internacional SIN + ni espacios: 549 + área sin 0 + número sin 15
   whatsapp: {
-    numero: "5491137748200",
-    mensaje: {
-      es: "Hola! Vi la web y quiero saber más sobre automatización para mi negocio.",
-      en: "Hi! I saw your site and I would like to know more about automation.",
+    number: "5491137748200",
+    message: {
+      es: "Hola! Quiero saber más sobre automatización para mi negocio.",
+      en: "Hi! I would like to know more about automation.",
     },
   },
 
@@ -27,6 +27,6 @@ export const CONFIG = {
   },
 
   // --- Idiomas ---
-  idiomas: ["es", "en"],
-  idiomaPorDefecto: "es",
+  langs: ["es", "en"],
+  defaultLang: "es",
 };

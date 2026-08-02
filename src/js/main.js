@@ -15,28 +15,28 @@
 import "../css/styles.css";
 
 import { initI18n } from "./i18n.js";
-import { renderTodo } from "./render.js";
-import { initReveal, initContadores, observarNuevos } from "./animations.js";
+import { renderAll } from "./render.js";
+import { initReveal, initCounters, observeNew } from "./animations.js";
 import { initNav } from "./nav.js";
 import { initWhatsApp } from "./whatsapp.js";
 import { initForm } from "./form.js";
 
 function init() {
   initI18n(); // 1. define el idioma y traduce el HTML estático
-  renderTodo(); // 2. crea las secciones dinámicas
+  renderAll(); // 2. crea las secciones dinámicas
   initNav();
   initWhatsApp();
   initForm();
   initReveal(); // 3. observa los .reveal (incluidos los recién creados)
-  initContadores();
+  initCounters();
 
   document.getElementById("year").textContent = new Date().getFullYear();
 }
 
 /* Si cambia el idioma, volvemos a pintar el contenido dinámico */
-document.addEventListener("idioma:cambiado", () => {
-  renderTodo();
-  observarNuevos();
+document.addEventListener("lang:changed", () => {
+  renderAll();
+  observeNew();
   document
     .querySelectorAll("#steps .reveal")
     .forEach((el) => el.classList.add("is-visible"));

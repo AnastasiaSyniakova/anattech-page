@@ -16,28 +16,28 @@ export function initForm() {
   const form = document.getElementById("contactForm");
   if (!form) return;
 
-  const exito = document.getElementById("formSuccess");
-  const boton = document.getElementById("submitBtn");
+  const successEl = document.getElementById("formSuccess");
+  const submitBtn = document.getElementById("submitBtn");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     if (form._gotcha.value) return; // bot detectado, ignorar en silencio
-    if (!validar(form)) return;
+    if (!validate(form)) return;
 
-    setCargando(boton, true);
+    setLoading(submitBtn, true);
 
     try {
-      await enviar(new FormData(form));
+      await send(new FormData(form));
 
       form.hidden = true;
-      exito.hidden = false;
-      exito.scrollIntoView({ behavior: "smooth", block: "center" });
+      successEl.hidden = false;
+      successEl.scrollIntoView({ behavior: "smooth", block: "center" });
     } catch (err) {
       console.error("Error al enviar:", err);
       alert(t("formError"));
     } finally {
-      setCargando(boton, false);
+      setLoading(submitBtn, false);
     }
   });
 
@@ -49,54 +49,56 @@ export function initForm() {
 
 /* ---------- validación ---------- */
 
-function validar(form) {
+function validate(form) {
   let ok = true;
 
   form
     .querySelectorAll(".field")
     .forEach((f) => f.classList.remove("is-invalid"));
 
+  // nombre / contacto / rubro: coinciden con el atributo name="" del HTML,
+  // no se pueden renombrar acá sin cambiar el HTML también
   if (form.nombre.value.trim().length < 2) {
-    marcarError(form.nombre);
+    markError(form.nombre);
     ok = false;
   }
-  if (!contactoValido(form.contacto.value)) {
-    marcarError(form.contacto);
+  if (!isValidContact(form.contacto.value)) {
+    markError(form.contacto);
     ok = false;
   }
   if (!form.rubro.value) {
-    marcarError(form.rubro);
+    markError(form.rubro);
     ok = false;
   }
 
   return ok;
 }
 
-function marcarError(input) {
+function markError(input) {
   input.closest(".field")?.classList.add("is-invalid");
 }
 
-function contactoValido(valor) {
-  const v = valor.trim();
-  const esEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
-  const esTelefono = /^[\d\s+()\-]{8,}$/.test(v);
-  return esEmail || esTelefono;
+function isValidContact(value) {
+  const v = value.trim();
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  const isPhone = /^[\d\s+()\-]{8,}$/.test(v);
+  return isEmail || isPhone;
 }
 
 /* ---------- envío ---------- */
 
-async function enviar(formData) {
-  const datos = Object.fromEntries(formData);
-  delete datos._gotcha;
+async function send(formData) {
+  const data = Object.fromEntries(formData);
+  delete data._gotcha;
 
   /* modo demo: todavía no hay endpoint */
   if (!CONFIG.form.endpoint) {
     console.log(
       "%c[DEMO] Datos del formulario:",
       "color:#10402D;font-weight:bold",
-      datos,
+      data,
     );
-    await esperar(CONFIG.form.demoDelay);
+    await wait(CONFIG.form.demoDelay);
     return { ok: true, demo: true };
   }
 
@@ -104,21 +106,21 @@ async function enviar(formData) {
   const res = await fetch(CONFIG.form.endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify(datos),
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
-const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /* ---------- estado del botón ---------- */
 
-function setCargando(boton, cargando) {
-  if (!boton) return;
-  boton.disabled = cargando;
-  boton.querySelector("span").textContent = cargando
+function setLoading(button, loading) {
+  if (!button) return;
+  button.disabled = loading;
+  button.querySelector("span").textContent = loading
     ? t("formSending")
     : t("formSubmit");
 }

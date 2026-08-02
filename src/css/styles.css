@@ -416,9 +416,10 @@ h3 {
 
 .hero__title em {
   font-style: italic;
-  /* color: var(--accent-bright); */
+
   text-decoration-thickness: 3px;
   text-underline-offset: 0.1em;
+  text-decoration-skip-ink: none;
 }
 
 .hero__sub {

@@ -8,59 +8,59 @@
    menos animación en su sistema, mostramos todo directo.
    ============================================================ */
 
-const sinMovimiento = window.matchMedia(
+const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
 
 /* ---------- aparecer al scrollear ---------- */
 
-let observerReveal = null;
+let revealObserver = null;
 
 export function initReveal() {
-  if (sinMovimiento) {
+  if (prefersReducedMotion) {
     document
       .querySelectorAll(".reveal")
       .forEach((el) => el.classList.add("is-visible"));
     return;
   }
 
-  observerReveal = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach((e) => {
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
         if (!e.isIntersecting) return;
         e.target.classList.add("is-visible");
-        observerReveal.unobserve(e.target); // se anima una sola vez
+        revealObserver.unobserve(e.target); // se anima una sola vez
       });
     },
     { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
   );
 
-  observarNuevos();
+  observeNew();
 }
 
 /** Llamar después de renderizar contenido nuevo. */
-export function observarNuevos() {
-  if (!observerReveal) return;
+export function observeNew() {
+  if (!revealObserver) return;
   document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => {
-    observerReveal.observe(el);
+    revealObserver.observe(el);
   });
 }
 
 /* ---------- contadores ---------- */
 
-export function initContadores() {
+export function initCounters() {
   const nums = document.querySelectorAll("[data-target]");
 
-  if (sinMovimiento) {
-    nums.forEach(mostrarFinal);
+  if (prefersReducedMotion) {
+    nums.forEach(showFinal);
     return;
   }
 
   const obs = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach((e) => {
+    (entries) => {
+      entries.forEach((e) => {
         if (!e.isIntersecting) return;
-        animarNumero(e.target);
+        animateNumber(e.target);
         obs.unobserve(e.target);
       });
     },
@@ -70,22 +70,22 @@ export function initContadores() {
   nums.forEach((n) => obs.observe(n));
 }
 
-function mostrarFinal(el) {
+function showFinal(el) {
   const { target, prefix = "", suffix = "" } = el.dataset;
   el.textContent = prefix + target + suffix;
 }
 
-function animarNumero(el) {
-  const objetivo = parseInt(el.dataset.target, 10);
-  const prefijo = el.dataset.prefix || "";
-  const sufijo = el.dataset.suffix || "";
-  const duracion = 1100;
-  const inicio = performance.now();
+function animateNumber(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const prefix = el.dataset.prefix || "";
+  const suffix = el.dataset.suffix || "";
+  const duration = 1100;
+  const start = performance.now();
 
-  function frame(ahora) {
-    const t = Math.min((ahora - inicio) / duracion, 1);
-    const suave = 1 - Math.pow(1 - t, 3); // ease-out cubic
-    el.textContent = prefijo + Math.round(objetivo * suave) + sufijo;
+  function frame(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+    el.textContent = prefix + Math.round(target * eased) + suffix;
     if (t < 1) requestAnimationFrame(frame);
   }
 

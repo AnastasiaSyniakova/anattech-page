@@ -9,24 +9,24 @@
    ============================================================ */
 
 export const STATS = [
-  { valor: 12, sufijo: "h", clave: "statHours" },
-  { valor: 50, prefijo: "−", sufijo: "%", clave: "statNoShow" },
-  { valor: 24, sufijo: "/7", clave: "statAlways" },
-  { valor: 3, sufijo: " seg", clave: "statSpeed" },
+  { value: 12, suffix: "h", key: "statHours" },
+  { value: 50, prefix: "−", suffix: "%", key: "statNoShow" },
+  { value: 24, suffix: "/7", key: "statAlways" },
+  { value: 3, suffixKey: "statSpeedSuffix", key: "statSpeed" },
 ];
 
-export const PASOS = [
-  { n: "01", titulo: "step1Title", texto: "step1Text" },
-  { n: "02", titulo: "step2Title", texto: "step2Text" },
-  { n: "03", titulo: "step3Title", texto: "step3Text" },
+export const STEPS = [
+  { n: "01", titleKey: "step1Title", textKey: "step1Text" },
+  { n: "02", titleKey: "step2Title", textKey: "step2Text" },
+  { n: "03", titleKey: "step3Title", textKey: "step3Text" },
 ];
 
-export const RUBROS = [
-  { valor: "", clave: "sectorPlaceholder" },
-  { valor: "salud", clave: "sectorHealth" },
-  { valor: "educacion", clave: "sectorEdu" },
-  { valor: "inmobiliaria", clave: "sectorReal" },
-  { valor: "ecommerce", clave: "sectorShop" },
-  { valor: "belleza", clave: "sectorBeauty" },
-  { valor: "otro", clave: "sectorOther" },
+export const SECTORS = [
+  { value: "", key: "sectorPlaceholder" },
+  { value: "salud", key: "sectorHealth" },
+  { value: "educacion", key: "sectorEdu" },
+  { value: "inmobiliaria", key: "sectorReal" },
+  { value: "ecommerce", key: "sectorShop" },
+  { value: "belleza", key: "sectorBeauty" },
+  { value: "otro", key: "sectorOther" },
 ];
