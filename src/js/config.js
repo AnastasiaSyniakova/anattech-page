@@ -22,7 +22,7 @@ export const CONFIG = {
   // Creá una cuenta gratis en formspree.io o web3forms.com y pegá el endpoint.
   // Mientras esté vacío, el formulario simula el envío y loguea en consola.
   form: {
-    endpoint: "", // ej: 'https://formspree.io/f/xxxxxxx'
+    endpoint: "https://formspree.io/f/mljrjnwo",
     demoDelay: 700, // ms de espera falsa en modo demo
   },
 
