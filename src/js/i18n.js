@@ -36,6 +36,9 @@ export const TEXTS = {
     howIntro:
       "Conectamos las herramientas que ya usás para automatizar tus procesos. Integrá WhatsApp, Telegram, Google Calendar u otras plataformas para centralizar la información, reducir tareas manuales y trabajar de manera más eficiente.",
 
+    botCtaTitle: "Hablá con el bot antes de contratarnos",
+    closeLabel: "Cerrar",
+
     step1Title: "Diagnóstico",
     step1Text:
       "Analizamos durante 20 minutos cómo trabajás actualmente e identificamos las 3 tareas que más tiempo consumen.",
@@ -96,6 +99,9 @@ export const TEXTS = {
     howTitle: "Automate your business in three simple steps",
     howIntro:
       "We connect the tools you already use, such as WhatsApp, Telegram, and Google Calendar to streamline your workflows, reduce manual work, and keep everything in one place.",
+
+    botCtaTitle: "Talk to the bot before you hire us.",
+    closeLabel: "Close",
 
     step1Title: "Assessment",
     step1Text:

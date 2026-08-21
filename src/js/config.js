@@ -18,6 +18,12 @@ export const CONFIG = {
     },
   },
 
+  // --- Telegram ---
+  // Pegá acá el link de tu bot (ej: https://t.me/tu_bot).
+  telegram: {
+    botUrl: "https://t.me/anattech_Telegram_bot",
+  },
+
   // --- Formulario ---
   // Creá una cuenta gratis en formspree.io o web3forms.com y pegá el endpoint.
   // Mientras esté vacío, el formulario simula el envío y loguea en consola.

@@ -337,6 +337,51 @@
       </div>
     </footer>
 
+    <!-- ==================== MODAL: BOT DE TELEGRAM ====================
+      Aparece una sola vez al cruzar de "Cómo funciona" a "Contacto"
+      (telegram.js la observa con IntersectionObserver). El link del
+      bot vive en src/js/config.js (CONFIG.telegram.botUrl). -->
+    <div class="bot-modal" id="botModal" hidden>
+      <div class="bot-modal__backdrop" id="botModalBackdrop"></div>
+      <div
+        class="bot-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="botModalTitle"
+      >
+        <div class="bot-card__bg" aria-hidden="true"></div>
+        <button
+          type="button"
+          class="bot-card__close"
+          id="botCardClose"
+          data-i18n-attr="aria-label"
+          data-i18n="closeLabel"
+          aria-label="Cerrar"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2
+          class="bot-card__title"
+          id="botModalTitle"
+          data-i18n="botCtaTitle"
+        >
+          Hablá con el bot antes de contratarnos.
+        </h2>
+        <a
+          href="#"
+          class="bot-card__link"
+          id="botLink"
+          target="_blank"
+          rel="noopener"
+          aria-label="Bot de Telegram"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
     <!-- ==================== WHATSAPP FLOTANTE ==================== -->
     <a
       href="#"

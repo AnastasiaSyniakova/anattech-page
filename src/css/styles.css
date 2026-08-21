@@ -595,6 +595,128 @@ h3 {
 }
 
 /* ============================================================
+   7b. MODAL: BOT DE TELEGRAM
+   ============================================================ */
+.bot-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-6);
+}
+
+.bot-modal[hidden] {
+  display: none;
+}
+
+.bot-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 13, 10, 0.78);
+  backdrop-filter: blur(4px);
+}
+
+.bot-card {
+  position: relative;
+  z-index: 1;
+  width: 40%;
+  min-width: 320px;
+  max-width: 460px;
+  aspect-ratio: 5 / 7;
+  padding: var(--sp-8);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-1);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-8);
+  text-align: center;
+  animation: modal-in 0.3s var(--ease);
+}
+
+.bot-card__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 30%,
+    #000 40%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 30%,
+    #000 40%,
+    transparent 100%
+  );
+}
+
+.bot-card__close {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--ink-faint);
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease);
+}
+
+.bot-card__close:hover {
+  color: var(--lima);
+}
+
+.bot-card__title {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1.5rem, 3.6vw, 2.125rem);
+  line-height: 1.2;
+  max-width: 16ch;
+}
+
+.bot-card__link {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--lima);
+  box-shadow: var(--shadow-glow);
+  transition: transform var(--dur) var(--ease);
+}
+
+.bot-card__link:hover {
+  transform: scale(1.06);
+}
+
+.bot-card__link svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--bg);
+}
+
+/* ============================================================
    8. FORMULARIO
    ============================================================ */
 .contact__grid {
@@ -879,6 +1001,17 @@ h3 {
   }
 }
 
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Respetar la preferencia del sistema */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -970,6 +1103,13 @@ h3 {
 
   .hero__actions .btn {
     width: 100%;
+  }
+
+  .bot-card {
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: auto;
+    padding: var(--sp-6);
   }
 
   .form-card {

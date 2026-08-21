@@ -19,6 +19,7 @@ import { renderAll } from "./render.js";
 import { initReveal, observeNew, animateHeadline } from "./animations.js";
 import { initNav } from "./nav.js";
 import { initWhatsApp } from "./whatsapp.js";
+import { initTelegram } from "./telegram.js";
 import { initForm } from "./form.js";
 
 function init() {
@@ -26,6 +27,7 @@ function init() {
   renderAll(); // 2. crea las secciones dinámicas
   initNav();
   initWhatsApp();
+  initTelegram();
   initForm();
   initReveal(); // 3. observa los .reveal (incluidos los recién creados)
 
