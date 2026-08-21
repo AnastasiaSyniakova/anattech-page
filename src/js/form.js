@@ -43,7 +43,9 @@ export function initForm() {
 
   /* limpiar el error apenas el usuario corrige */
   form.addEventListener("input", (e) => {
-    e.target.closest(".field")?.classList.remove("is-invalid");
+    const field = e.target.closest(".field");
+    field?.classList.remove("is-invalid");
+    if (field) e.target.setAttribute("aria-invalid", "false");
   });
 }
 
@@ -52,9 +54,13 @@ export function initForm() {
 function validate(form) {
   let ok = true;
 
-  form
-    .querySelectorAll(".field")
-    .forEach((f) => f.classList.remove("is-invalid"));
+  form.querySelectorAll(".field").forEach((f) => {
+    f.classList.remove("is-invalid");
+    f.querySelector("input, select, textarea")?.setAttribute(
+      "aria-invalid",
+      "false",
+    );
+  });
 
   // nombre / contacto / rubro: coinciden con el atributo name="" del HTML,
   // no se pueden renombrar acá sin cambiar el HTML también
@@ -76,6 +82,7 @@ function validate(form) {
 
 function markError(input) {
   input.closest(".field")?.classList.add("is-invalid");
+  input.setAttribute("aria-invalid", "true");
 }
 
 function isValidContact(value) {

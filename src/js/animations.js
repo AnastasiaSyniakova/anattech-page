@@ -46,48 +46,51 @@ export function observeNew() {
   });
 }
 
-/* ---------- contadores ---------- */
+/* ---------- titular: entrada palabra por palabra ---------- */
 
-export function initCounters() {
-  const nums = document.querySelectorAll("[data-target]");
+/** Envuelve cada palabra (y cada elemento inline, como <em>) en un
+ *  <span class="word"> para animarlas con blur-in escalonado en CSS,
+ *  y agrega el cursor de terminal parpadeante al final del titular. */
+export function animateHeadline(selector) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  cursor.setAttribute("aria-hidden", "true");
 
   if (prefersReducedMotion) {
-    nums.forEach(showFinal);
+    el.appendChild(cursor);
     return;
   }
 
-  const obs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        animateNumber(e.target);
-        obs.unobserve(e.target);
+  const frag = document.createDocumentFragment();
+  let i = 0;
+
+  Array.from(el.childNodes).forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split(/(\s+)/).forEach((part) => {
+        if (part === "") return;
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+          return;
+        }
+        const span = document.createElement("span");
+        span.className = "word";
+        span.style.setProperty("--i", i++);
+        span.textContent = part;
+        frag.appendChild(span);
       });
-    },
-    { threshold: 0.5 },
-  );
+    } else {
+      const span = document.createElement("span");
+      span.className = "word";
+      span.style.setProperty("--i", i++);
+      span.appendChild(node.cloneNode(true));
+      frag.appendChild(span);
+    }
+  });
 
-  nums.forEach((n) => obs.observe(n));
-}
-
-function showFinal(el) {
-  const { target, prefix = "", suffix = "" } = el.dataset;
-  el.textContent = prefix + target + suffix;
-}
-
-function animateNumber(el) {
-  const target = parseInt(el.dataset.target, 10);
-  const prefix = el.dataset.prefix || "";
-  const suffix = el.dataset.suffix || "";
-  const duration = 1100;
-  const start = performance.now();
-
-  function frame(now) {
-    const t = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
-    el.textContent = prefix + Math.round(target * eased) + suffix;
-    if (t < 1) requestAnimationFrame(frame);
-  }
-
-  requestAnimationFrame(frame);
+  el.innerHTML = "";
+  el.appendChild(frag);
+  el.appendChild(cursor);
 }

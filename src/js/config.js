@@ -11,7 +11,7 @@ export const CONFIG = {
   // --- WhatsApp ---
   // Formato internacional SIN + ni espacios: 549 + área sin 0 + número sin 15
   whatsapp: {
-    number: "5491137748200",
+    number: "5491156155171",
     message: {
       es: "Hola! Quiero saber más sobre automatización para mi negocio.",
       en: "Hi! I would like to know more about automation.",

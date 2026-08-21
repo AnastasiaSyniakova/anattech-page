@@ -16,7 +16,7 @@ import "../css/styles.css";
 
 import { initI18n } from "./i18n.js";
 import { renderAll } from "./render.js";
-import { initReveal, initCounters, observeNew } from "./animations.js";
+import { initReveal, observeNew, animateHeadline } from "./animations.js";
 import { initNav } from "./nav.js";
 import { initWhatsApp } from "./whatsapp.js";
 import { initForm } from "./form.js";
@@ -28,15 +28,17 @@ function init() {
   initWhatsApp();
   initForm();
   initReveal(); // 3. observa los .reveal (incluidos los recién creados)
-  initCounters();
 
   document.getElementById("year").textContent = new Date().getFullYear();
 }
 
-/* Si cambia el idioma, volvemos a pintar el contenido dinámico */
+/* initI18n() ya dispara "lang:changed" una vez al arrancar (además de
+   cada vez que se cambia de idioma), así que este listener alcanza para
+   pintar el titular animado y el contenido dinámico en ambos casos. */
 document.addEventListener("lang:changed", () => {
   renderAll();
   observeNew();
+  animateHeadline(".hero__title");
   document
     .querySelectorAll("#steps .reveal")
     .forEach((el) => el.classList.add("is-visible"));

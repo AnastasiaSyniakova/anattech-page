@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anattech.com/sitemap.xml

@@ -3,10 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0d0a" />
+    <meta name="robots" content="index, follow" />
 
     <!-- ============ SEO / SOCIAL ============
        El title y la description los actualiza i18n.js
        según el idioma activo. Estos son el fallback. -->
+    <link rel="canonical" href="https://anattech.com/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title data-i18n="metaTitle">Automatización con IA para tu negocio</title>
     <meta
@@ -16,22 +19,53 @@
       content="Automatizamos la atención por WhatsApp y las reservas de tu negocio."
     />
 
-    <!-- Así se ve el link cuando lo mandás por WhatsApp -->
+    <!-- Así se ve el link cuando lo mandás por WhatsApp o redes -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Automatización con IA para tu negocio" />
+    <meta property="og:url" content="https://anattech.com/" />
+    <meta property="og:site_name" content="Anattech" />
+    <meta property="og:title" content="Anattech · Automatización con IA para tu negocio" />
     <meta
       property="og:description"
-      content="Nunca más se pierde una consulta."
+      content="Automatizamos la atención por WhatsApp, las reservas y el seguimiento de clientes. Nunca más se pierde una consulta."
     />
-    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image" content="https://anattech.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_AR" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Anattech · Automatización con IA para tu negocio" />
+    <meta
+      name="twitter:description"
+      content="Automatizamos la atención por WhatsApp, las reservas y el seguimiento de clientes."
+    />
+    <meta name="twitter:image" content="https://anattech.com/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Antic+Didone&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Datos estructurados: ayuda a buscadores a entender qué es el sitio -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Anattech",
+        "url": "https://anattech.com/",
+        "logo": "https://anattech.com/favicon.svg",
+        "description": "Automatización con IA para negocios: atención por WhatsApp, reservas y seguimiento de clientes.",
+        "areaServed": "AR",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "areaServed": "AR",
+          "availableLanguage": ["es", "en"]
+        }
+      }
+    </script>
 
     <!--
       ÚNICO script del sitio. Vite se encarga de todo lo demás:
@@ -49,21 +83,25 @@
     <header class="site-header" id="header">
       <div class="container header__inner">
         <a href="#top" class="logo">
+          <span class="logo__bullet" aria-hidden="true"></span>
           <span class="logo__text">Anattech</span>
-          <span class="logo__dot" aria-hidden="true"></span>
         </a>
 
         <nav class="nav" id="nav" aria-label="Principal">
           <ul class="nav__list">
             <li>
-              <a class="nav__link" href="#como" data-i18n="navHow"
-                >Cómo funciona</a
-              >
+              <a class="nav__link" href="#como">
+                <span aria-hidden="true">[ </span
+                ><span data-i18n="navHow">Cómo funciona</span
+                ><span aria-hidden="true"> ]</span>
+              </a>
             </li>
             <li>
-              <a class="nav__link" href="#contacto" data-i18n="navContact"
-                >Contacto</a
-              >
+              <a class="nav__link" href="#contacto">
+                <span aria-hidden="true">[ </span
+                ><span data-i18n="navContact">Contacto</span
+                ><span aria-hidden="true"> ]</span>
+              </a>
             </li>
           </ul>
         </nav>
@@ -79,7 +117,7 @@
 
           <a
             href="#contacto"
-            class="btn btn--primary btn--sm header__cta"
+            class="btn btn--ghost btn--sm header__cta"
             data-i18n="ctaNav"
           >
             Diagnóstico gratis
@@ -101,14 +139,18 @@
     <main id="top">
       <!-- ==================== HERO ==================== -->
       <section class="hero">
+        <div class="hero__bg" aria-hidden="true"></div>
         <div class="container">
           <p class="pill reveal">
             <span class="pill__pulse" aria-hidden="true"></span>
             <span data-i18n="heroPill">Automatizá tus operaciones con IA</span>
           </p>
 
-          <!-- data-i18n-html porque el texto contiene una etiqueta <em> -->
-          <h1 class="hero__title reveal" data-i18n-html="heroTitle">
+          <!-- data-i18n-html porque el texto contiene una etiqueta <em>.
+               animateHeadline() (animations.js) envuelve cada palabra en
+               un <span class="word"> para la entrada con blur escalonado,
+               y agrega el cursor parpadeante al final. -->
+          <h1 class="hero__title" data-i18n-html="heroTitle">
             Hacé que tu negocio <em>trabaje por vos</em>, las 24 horas.
           </h1>
 
@@ -125,16 +167,16 @@
               Cómo funciona
             </a>
           </div>
-
-          <!-- Los números los anima animations.js leyendo data-target -->
-          <ul class="stats reveal" id="stats"></ul>
         </div>
       </section>
 
       <!-- ==================== CÓMO FUNCIONA ==================== -->
-      <section class="section section--alt" id="como">
+      <section class="section section--grid" id="como">
         <div class="container">
-          <p class="eyebrow reveal" data-i18n="howEyebrow">Cómo funciona</p>
+          <p class="eyebrow reveal">
+            <span aria-hidden="true">// </span
+            ><span data-i18n="howEyebrow">Cómo funciona</span>
+          </p>
           <h2 class="section__title reveal" data-i18n="howTitle">
             Tres pasos. Sin que cambies cómo trabajás.
           </h2>
@@ -151,56 +193,88 @@
       <!-- ==================== CONTACTO ==================== -->
       <section class="section section--accent" id="contacto">
         <div class="container">
-          <p class="eyebrow reveal" data-i18n="formEyebrow">Empezá acá</p>
-          <h2 class="section__title reveal" data-i18n="formTitle">
-            Diagnóstico gratuito de 20 minutos.
-          </h2>
-          <p class="section__intro reveal" data-i18n="formIntro">
-            Miramos juntos tu operación y te decimos qué se puede automatizar.
-            Sin compromiso.
-          </p>
+          <div class="contact__grid">
+            <div class="contact__intro">
+              <p class="eyebrow reveal">
+                <span aria-hidden="true">// </span
+                ><span data-i18n="formEyebrow">Empezá acá</span>
+              </p>
+              <h2 class="section__title reveal" data-i18n="formTitle">
+                Diagnóstico gratuito de 20 minutos.
+              </h2>
+              <p class="section__intro reveal" data-i18n="formIntro">
+                Miramos juntos tu operación y te decimos qué se puede
+                automatizar. Sin compromiso.
+              </p>
+            </div>
 
-          <div class="form-card reveal">
-            <form id="contactForm" novalidate>
-              <div class="field">
-                <label for="nombre" data-i18n="fieldName">Nombre</label>
-                <input
-                  type="text"
-                  id="nombre"
-                  name="nombre"
-                  autocomplete="name"
-                />
-                <p class="field__error" data-i18n="errName">Poné tu nombre.</p>
+            <div class="form-card reveal">
+              <form
+                id="contactForm"
+                novalidate
+                action="https://formspree.io/f/mljrjnwo"
+                method="POST"
+              >
+              <div class="field-row">
+                <div class="field">
+                  <label for="nombre" class="sr-only" data-i18n="fieldName">Nombre</label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    autocomplete="name"
+                    placeholder="Nombre"
+                    data-i18n="fieldName"
+                    data-i18n-attr="placeholder"
+                    aria-invalid="false"
+                    aria-describedby="err-nombre"
+                  />
+                  <p class="field__error" id="err-nombre" role="alert" data-i18n="errName">
+                    Poné tu nombre.
+                  </p>
+                </div>
+
+                <div class="field">
+                  <label for="contactInput" class="sr-only" data-i18n="fieldContact"
+                    >Email o WhatsApp</label
+                  >
+                  <input
+                    type="text"
+                    id="contactInput"
+                    name="contacto"
+                    autocomplete="email"
+                    placeholder="Email o WhatsApp"
+                    data-i18n="fieldContact"
+                    data-i18n-attr="placeholder"
+                    aria-invalid="false"
+                    aria-describedby="err-contacto"
+                  />
+                  <p class="field__error" id="err-contacto" role="alert" data-i18n="errContact">
+                    Necesito un email o teléfono válido.
+                  </p>
+                </div>
               </div>
 
               <div class="field">
-                <label for="contactInput" data-i18n="fieldContact"
-                  >Email o WhatsApp</label
-                >
-                <input
-                  type="text"
-                  id="contactInput"
-                  name="contacto"
-                  autocomplete="email"
-                />
-                <p class="field__error" data-i18n="errContact">
-                  Necesito un email o teléfono válido.
-                </p>
-              </div>
-
-              <div class="field">
-                <label for="rubro" data-i18n="fieldSector">Rubro</label>
-                <select id="rubro" name="rubro"></select>
-                <p class="field__error" data-i18n="errSector">
+                <label for="rubro" class="sr-only" data-i18n="fieldSector">Rubro</label>
+                <select id="rubro" name="rubro" aria-invalid="false" aria-describedby="err-rubro"></select>
+                <p class="field__error" id="err-rubro" role="alert" data-i18n="errSector">
                   Elegí tu rubro.
                 </p>
               </div>
 
               <div class="field">
-                <label for="mensaje" data-i18n="fieldMessage"
+                <label for="mensaje" class="sr-only" data-i18n="fieldMessage"
                   >¿Qué te está comiendo más tiempo?</label
                 >
-                <textarea id="mensaje" name="mensaje" rows="3"></textarea>
+                <textarea
+                  id="mensaje"
+                  name="mensaje"
+                  rows="3"
+                  placeholder="¿Qué te está comiendo más tiempo?"
+                  data-i18n="fieldMessage"
+                  data-i18n-attr="placeholder"
+                ></textarea>
               </div>
 
               <!-- Honeypot: los bots lo completan, las personas no lo ven -->
@@ -226,11 +300,12 @@
               </p>
             </form>
 
-            <div class="form-success" id="formSuccess" hidden>
-              <h3 data-i18n="successTitle">¡Listo!</h3>
-              <p data-i18n="successText">
-                Te escribo dentro de las próximas 24 horas.
-              </p>
+              <div class="form-success" id="formSuccess" hidden>
+                <h3 data-i18n="successTitle">¡Listo!</h3>
+                <p data-i18n="successText">
+                  Te escribo dentro de las próximas 24 horas.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -242,8 +317,8 @@
       <div class="container footer__inner">
         <div class="footer__brand">
           <a href="#top" class="logo">
+            <span class="logo__bullet" aria-hidden="true"></span>
             <span class="logo__text">Anattech</span>
-            <span class="logo__dot" aria-hidden="true"></span>
           </a>
           <p class="footer__tagline" data-i18n="footerTagline">
             Automatización con IA para negocios.
@@ -257,7 +332,7 @@
         </nav>
 
         <p class="footer__legal">
-          © <span id="year"></span> Anattech · Buenos Aires, Argentina
+          © <span id="year"></span> ANATTECH · BUENOS AIRES, ARGENTINA
         </p>
       </div>
     </footer>

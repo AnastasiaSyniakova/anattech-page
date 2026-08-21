@@ -31,12 +31,6 @@ export const TEXTS = {
     ctaPrimary: "Pedí tu diagnóstico gratis",
     ctaSecondary: "Cómo funciona",
 
-    statHours: "Ahorradas por mes",
-    statNoShow: "Menos ausencias",
-    statAlways: "Atención activa",
-    statSpeed: "Tiempo de respuesta",
-    statSpeedSuffix: " seg",
-
     howEyebrow: "Cómo funciona",
     howTitle: "Tres pasos. Sin que cambies cómo trabajás",
     howIntro:
@@ -45,12 +39,15 @@ export const TEXTS = {
     step1Title: "Diagnóstico",
     step1Text:
       "Analizamos durante 20 minutos cómo trabajás actualmente e identificamos las 3 tareas que más tiempo consumen.",
+    step1Duration: "20 min",
     step2Title: "Implementación",
     step2Text:
       "Diseñamos el sistema y lo conectamos a tus herramientas actuales.",
+    step2Duration: "1–2 semanas",
     step3Title: "Soporte",
     step3Text:
       "Monitoreamos el sistema, realizamos los ajustes necesarios e incorporamos nuevas automatizaciones a medida que tu negocio crece.",
+    step3Duration: "Continuo",
 
     formEyebrow: "Empezá acá",
     formTitle: "Diagnóstico gratuito de 20 minutos.",
@@ -95,12 +92,6 @@ export const TEXTS = {
     ctaPrimary: "Get your free assessment",
     ctaSecondary: "How it works",
 
-    statHours: "Saved per month",
-    statNoShow: "Fewer no-shows",
-    statAlways: "Always on",
-    statSpeed: "Response time",
-    statSpeedSuffix: " sec",
-
     howEyebrow: "How it works",
     howTitle: "Automate your business in three simple steps",
     howIntro:
@@ -109,12 +100,15 @@ export const TEXTS = {
     step1Title: "Assessment",
     step1Text:
       "In a focused 20-minute session, we review how your business operates and identify the three tasks taking up the most time.",
+    step1Duration: "20 min",
     step2Title: "Implementation",
     step2Text:
       "We build a solution around your existing workflow and integrate it with the tools your team already uses.",
+    step2Duration: "1–2 weeks",
     step3Title: "Support",
     step3Text:
       "We monitor performance, fine-tune the system, and introduce new automations as your business evolves.",
+    step3Duration: "Ongoing",
 
     formEyebrow: "Start here",
     formTitle: "Free 20-minute assessment.",
@@ -132,7 +126,7 @@ export const TEXTS = {
     formNote: "I'll get back to you within 24 hours",
     formError: "Something went wrong. Try again or message me on WhatsApp.",
     successTitle: "Done!",
-    successText: "I will write to you within the next 24 hours.",
+    successText: "I will be in touch with you within the next 24 hours.",
 
     sectorPlaceholder: "Choose one",
     sectorHealth: "Health / Clinic",

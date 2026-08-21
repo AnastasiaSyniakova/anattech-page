@@ -26,6 +26,10 @@ export function initNav() {
     nav.classList.toggle("is-open", isOpen);
     burger.classList.toggle("is-open", isOpen);
     burger.setAttribute("aria-expanded", String(isOpen));
+
+    if (isOpen) {
+      nav.querySelector("a")?.focus();
+    }
   };
 
   burger.addEventListener("click", () => toggle());
@@ -35,8 +39,11 @@ export function initNav() {
     if (e.target.closest("a")) toggle(false);
   });
 
-  /* cerrar con Escape */
+  /* cerrar con Escape, devolviendo el foco al botón */
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") toggle(false);
+    if (e.key === "Escape" && nav.classList.contains("is-open")) {
+      toggle(false);
+      burger.focus();
+    }
   });
 }

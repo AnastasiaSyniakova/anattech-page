@@ -1,12 +1,14 @@
 import { defineConfig } from "vite";
 
 /*
-  base: le dice a Vite que el sitio NO vive en la raíz del dominio,
-  sino en un subdirectorio — que es como funcionan los GitHub Pages
-  de un repositorio (a diferencia de un usuario/organización).
+  base: le dice a Vite dónde vive el sitio dentro del dominio.
 
-  DEBE coincidir EXACTAMENTE con el nombre de tu repo, entre barras.
-  Repo: anattech-page  →  base: '/anattech-page/'
+  Este proyecto usa un dominio propio (ver public/CNAME → anattech.com),
+  así que vive en la raíz y base tiene que quedar en '/'.
+
+  Si en algún momento se saca el CNAME y se vuelve a servir desde
+  github.io/<usuario>/anattech-page/, hay que cambiar esto a
+  '/anattech-page/' (debe coincidir EXACTAMENTE con el nombre del repo).
 */
 export default defineConfig({
   base: "/",

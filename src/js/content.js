@@ -8,17 +8,25 @@
    PARA AGREGAR UN PASO: sumás un objeto al array. Nada más.
    ============================================================ */
 
-export const STATS = [
-  { value: 12, suffix: "h", key: "statHours" },
-  { value: 50, prefix: "−", suffix: "%", key: "statNoShow" },
-  { value: 24, suffix: "/7", key: "statAlways" },
-  { value: 3, suffixKey: "statSpeedSuffix", key: "statSpeed" },
-];
-
 export const STEPS = [
-  { n: "01", titleKey: "step1Title", textKey: "step1Text" },
-  { n: "02", titleKey: "step2Title", textKey: "step2Text" },
-  { n: "03", titleKey: "step3Title", textKey: "step3Text" },
+  {
+    n: "01",
+    titleKey: "step1Title",
+    textKey: "step1Text",
+    durationKey: "step1Duration",
+  },
+  {
+    n: "02",
+    titleKey: "step2Title",
+    textKey: "step2Text",
+    durationKey: "step2Duration",
+  },
+  {
+    n: "03",
+    titleKey: "step3Title",
+    textKey: "step3Text",
+    durationKey: "step3Duration",
+  },
 ];
 
 export const SECTORS = [
